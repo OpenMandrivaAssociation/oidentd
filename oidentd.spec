@@ -1,24 +1,23 @@
-%define	name	oidentd
-%define	version	2.0.7
-%define	release	%mkrel 9
-
-Summary:	Ident server with masquerading support
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-License:	GPL GFDL
-Group:		System/Servers
-Source0:	http://prdownloads.sourceforge.net/ojnk/%{name}-%{version}.tar.bz2
-Source1:	%{name}.init.bz2
-Source2:	%{name}.users.bz2
-Source3:	%{name}.sysconfig.bz2
-Source4:	%{name}.conf.bz2
-Patch0:		oidentd-2.0.7-fix-parsing-of-new-ip-conntrack-format.patch.bz2
-URL:		http://ojnk.sourceforge.net/
-BuildRequires:	flex bison
-Provides:	identd
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Requires(pre,post,preun,postun):	rpm-helper
+Name:           oidentd
+Version:        2.0.8
+Release:        %mkrel 1
+Summary:        Ident server with masquerading support
+License:        GPL
+Group:          System/Servers
+URL:            http://ojnk.sourceforge.net/
+Source0:        http://superb-west.dl.sourceforge.net/sourceforge/ojnk/oidentd-%{version}.tar.gz
+Source1:        %{name}.init
+Source2:        %{name}.users
+Source3:        %{name}.sysconfig
+Source4:        %{name}.conf
+BuildRequires:  flex
+BuildRequires:  bison
+Provides:       identd
+Requires(pre):  rpm-helper
+Requires(post): rpm-helper
+Requires(preun): rpm-helper
+Requires(postun): rpm-helper
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Oidentd is an ident (rfc1413) daemon that runs on Linux, FreeBSD,
@@ -31,25 +30,24 @@ which oidentd runs.
 
 %prep
 %setup -q
-%patch0 -p1 -b .new_conntrack_format
 
 %build
-%configure
-%make
+%{configure2_5x}
+%{make}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%makeinstall
+%{__rm} -rf %{buildroot}
+%{makeinstall_std}
 
-install -d $RPM_BUILD_ROOT{%{_sysconfdir}/sysconfig,%{_initrddir}}
-bzcat %{SOURCE1} > $RPM_BUILD_ROOT%{_initrddir}/%{name} ; chmod 755 $RPM_BUILD_ROOT%{_initrddir}/%{name}
-bzcat %{SOURCE3} > $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{name}
-bzcat %{SOURCE2} > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}_masq.conf
-bzcat %{SOURCE4} > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.conf
-install -d $RPM_BUILD_ROOT%{_localstatedir}/%{name}
+%{__mkdir_p} %{buildroot}{%{_sysconfdir}/sysconfig,%{_initrddir}}
+%{__cp} -a %{SOURCE1} %{buildroot}%{_initrddir}/%{name} ; chmod 755 %{buildroot}%{_initrddir}/%{name}
+%{__cp} -a %{SOURCE3} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+%{__cp} -a %{SOURCE2} %{buildroot}%{_sysconfdir}/%{name}_masq.conf
+%{__cp} -a %{SOURCE4} %{buildroot}%{_sysconfdir}/%{name}.conf
+%{__mkdir_p} %{buildroot}%{_localstatedir}/%{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+%{__rm} -rf %{buildroot}
 
 %pre
 %_pre_useradd %{name} %{_localstatedir}/%{name} /bin/true

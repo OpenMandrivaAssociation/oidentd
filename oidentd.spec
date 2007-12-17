@@ -17,7 +17,6 @@ Requires(pre):  rpm-helper
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Requires(postun): rpm-helper
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Oidentd is an ident (rfc1413) daemon that runs on Linux, FreeBSD,

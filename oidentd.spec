@@ -44,13 +44,13 @@ which oidentd runs.
 %{__cp} -a %{SOURCE3} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 %{__cp} -a %{SOURCE2} %{buildroot}%{_sysconfdir}/%{name}_masq.conf
 %{__cp} -a %{SOURCE4} %{buildroot}%{_sysconfdir}/%{name}.conf
-%{__mkdir_p} %{buildroot}%{_localstatedir}/%{name}
+%{__mkdir_p} %{buildroot}%{_localstatedir}/lib/%{name}
 
 %clean
 %{__rm} -rf %{buildroot}
 
 %pre
-%_pre_useradd %{name} %{_localstatedir}/%{name} /bin/true
+%_pre_useradd %{name} %{_localstatedir}/lib/%{name} /bin/true
 
 %post
 %_post_service %{name}
@@ -71,4 +71,4 @@ which oidentd runs.
 %{_sbindir}/%{name}
 %{_initrddir}/%{name}
 %{_mandir}/*/*
-%dir %{_localstatedir}/%{name}
+%dir %{_localstatedir}/lib/%{name}

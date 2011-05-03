@@ -1,6 +1,6 @@
 Name:           oidentd
 Version:        2.0.8
-Release:        %mkrel 5
+Release:        %mkrel 6
 Summary:        Ident server with masquerading support
 License:        GPL
 Group:          System/Servers

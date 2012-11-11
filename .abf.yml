@@ -1,0 +1,6 @@
+sources:
+  "oidentd-2.0.8.tar.gz:"	e14f72075612fc04b40119e3784740d9a2300d4b
+  "oidentd.conf:"	15b08fb7a5442c61f4b8bd517e6c8fda115bdcb5
+  "oidentd.init:"	14c740cc48f4c0c879112402ea1e918ed8819c78
+  "oidentd.sysconfig:"	62de9c2ffa0875bf7be76cc01138296ee7e26b70
+  "oidentd.users:"	cacbf3fd17945e52d3f978a62d31739d9925ebb8

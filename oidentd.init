@@ -1,0 +1,76 @@
+#!/bin/sh
+#
+# oidentd		This shell script takes care of starting and stopping oidentd.
+#
+# chkconfig:    2345 80 30
+# description:  oidentd is a TCP/IP IDENT protocol server 
+#		
+# processname:  identd
+# config:	/etc/oidentd.conf
+# pidfile:
+#
+### BEGIN INIT INFO
+# Provides: oidentd
+# Required-Start: $network
+# Required-Stop: $network
+# Default-Start: 2 3 4 5
+# Short-Description: oidentd is a TCP/IP IDENT protocol server
+# Description: oidentd is a TCP/IP IDENT protocol server
+### END INIT INFO
+
+#Servicename
+SERVICE=oidentd
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Source oident configureation.
+if [ -f /etc/sysconfig/$SERVICE ] ; then
+	. /etc/sysconfig/$SERVICE
+else
+	OIDENT_USER=nobody
+	OIDENT_GROUP=nobody
+fi
+
+if [ ${NETWORKING} = "no" ]
+then
+	exit 0
+fi
+
+[ -x /usr/sbin/$SERVICE ] || exit 0
+
+# See how we were called.
+case "$1" in
+  start)
+	echo -n "Starting $SERVICE: "
+	daemon $SERVICE -g $OIDENT_GROUP -u $OIDENT_USER $OIDENT_OPTIONS
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/$SERVICE
+	;;
+  stop)
+	echo -n "Stopping $SERVICE: "
+	killproc $SERVICE
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$SERVICE
+	;;
+  status)
+	status $SERVICE
+	RETVAL=$?
+	;;
+  restart|reload)
+	$0 stop
+	$0 start
+	RETVAL=$?
+	;;
+  *)
+	echo "Usage: $SERVICE {start|stop|status|restart|reload}"
+	exit 1
+esac
+
+exit $RETVAL
+

@@ -1,6 +1,6 @@
 Name:           oidentd
 Version:        2.0.8
-Release:        %mkrel 6
+Release:        7
 Summary:        Ident server with masquerading support
 License:        GPL
 Group:          System/Servers
@@ -17,7 +17,6 @@ Requires(pre):  rpm-helper
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Requires(postun): rpm-helper
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Oidentd is an ident (rfc1413) daemon that runs on Linux, FreeBSD,
@@ -69,6 +68,112 @@ which oidentd runs.
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %{_initrddir}/%{name}
 %{_sbindir}/%{name}
-%{_initrddir}/%{name}
 %{_mandir}/*/*
 %dir %{_localstatedir}/lib/%{name}
+
+
+%changelog
+* Tue May 03 2011 Michael Scherer <misc@mandriva.org> 2.0.8-6mdv2011.0
++ Revision: 664795
+- rebuild old package
+
+  + Oden Eriksson <oeriksson@mandriva.com>
+    - the mass rebuild of 2010.0 packages
+
+* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 2.0.8-4mdv2010.0
++ Revision: 430197
+- rebuild
+
+* Wed Jul 30 2008 Thierry Vignaud <tv@mandriva.org> 2.0.8-3mdv2009.0
++ Revision: 254402
+- rebuild
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Pixel <pixel@mandriva.com>
+    - adapt to %%_localstatedir now being /var instead of /var/lib (#22312)
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Sat Nov 10 2007 David Walluck <walluck@mandriva.org> 2.0.8-1mdv2008.1
++ Revision: 107348
+- really add missing sources
+- 2.0.8
+- fix Requires syntax
+- bunzip all sources
+- add missing sources
+
+  + Nicolas Vigier <nvigier@mandriva.com>
+    - Import oidentd
+
+
+
+* Mon Jan  9 2006 Olivier Blin <oblin@mandriva.com> 2.0.7-9mdk
+- proper use of mkrel
+- fix typo in initscript
+
+* Mon Jan  9 2006 Olivier Blin <oblin@mandriva.com> 2.0.7-8mdk
+- convert parallel init to LSB
+
+* Tue Jan 03 2006 Per Øyvind Karlsen <pkarlsen@mandriva.com> 2.0.7-7mdk
+- add parallel init support
+- get rid of 3mdk's changelog #2
+
+* Mon Dec 12 2005 Olivier Blin <oblin@mandriva.com> 2.0.7-6mdk
+- merge back changelog from current 3mdk
+
+* Mon Oct 10 2005 Per Øyvind Karlsen <pkarlsen@mandriva.com> 2.0.7-3mdk
+- fix requires
+- fix executable-marked-as-config-file
+- %%mkrel
+
+* Mon Oct 10 2005 Per Øyvind Karlsen <pkarlsen@mandriva.com> 2.0.7-5mdk
+- rebuild
+
+* Wed Mar 02 2005 Per Øyvind Karlsen <peroyvind@linux-mandrake.com> 2.0.7-4mdk
+- add GFDL as license
+- add to rfc1413 %%doc
+
+* Wed Mar 02 2005 Per Øyvind Karlsen <peroyvind@linux-mandrake.com> 2.0.7-3mdk
+- fix parsing of new ip_conntrack format (P0 from debian)
+- drop redundant requires
+- fix executable-marked-as-config-file
+- cosmetics
+- convert changelog to utf-8
+
+* Thu Aug 19 2004 Lenny Cartier <lenny@mandrakesoft.com> 2.0.7-2mdk
+- rebuild
+
+* Wed Jul 30 2003 Per Øyvind Karlsen <peroyvind@sintrax.net> 2.0.7-1mdk
+- 2.0.7
+
+* Mon Jul 07 2003 Per Øyvind Karlsen <peroyvind@sintrax.net> 2.0.6-1mdk
+- 2.0.6
+
+* Tue Feb 25 2003 Per Øyvind Karlsen <peroyvind@sintrax.net> 2.0.5-1mdk
+- 2.0.5
+
+* Wed Nov 27 2002 Per Øyvind Karlsen <peroyvind@sintrax.net> 2.0.4-6mdk
+- Cleanups
+- Fixed init script
+- Fix config files
+
+* Mon Oct 21 2002 Lenny Cartier <lenny@mandrakesoft.com> 2.0.4-5mdk
+- from Per Øyvind Karlsen <peroyvind@delonic.no> :
+	- Cleaned up initscript
+	- Fixed permissions
+
+* Mon Oct 14 2002 Per Øyvind Karlsen <peroyvind@delonic.no> 2.0.4-4mdk
+- Added own user and group
+
+* Mon Oct 07 2002 Lenny Cartier <lenny@mandrakesoft.com> 2.0.4-3mdk
+- from Per Øyvind Karlsen <peroyvind@delonic.no> :
+	- Fixed SysV init script
+	- Fixed group
+
+* Wed Sep 25 2002 Per Øyvind Karlsen <peroyvind@delonic.no> 2.0.4-2mdk
+- Fixed %%post_service and %%preun_service
+- Cleanups
+
+* Wed Sep 25 2002 Per Øyvind Karlsen <peroyvind@delonic.no> 2.0.4-1dlc
+- Initial release, spec file adopted from PLD

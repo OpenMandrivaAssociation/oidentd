@@ -4,7 +4,7 @@ Release:        8
 Summary:        Ident server with masquerading support
 License:        GPL
 Group:          System/Servers
-URL:            http://ojnk.sourceforge.net/
+URL:            https://ojnk.sourceforge.net/
 Source0:        http://superb-west.dl.sourceforge.net/sourceforge/ojnk/oidentd-%{version}.tar.gz
 Source1:        %{name}.init
 Source2:        %{name}.users
